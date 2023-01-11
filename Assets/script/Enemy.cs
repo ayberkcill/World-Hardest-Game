@@ -4,37 +4,35 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public float enemySpeed = 4f;
+    public float enemySpeed = 4;
 
     [SerializeField]
-    private bool moveleft;
-    void Update()
+    public bool moveleft;
+
+    private void Update()
     {
-        if (moveleft)
+        if (moveleft == true)
         {
-            Vector3 temp = transform.position;
-            temp.x -= enemySpeed * Time.deltaTime;
-            transform.position = temp;  
+            Vector2 temp = transform.position;
+            temp.x += -enemySpeed * Time.deltaTime;
+            transform.position = temp;
+            Debug.Log("geldiii");
         }
         else
         {
-            Vector3 temp = transform.position;
-            temp.x += enemySpeed * Time.deltaTime;  
-            transform.position = temp;  
+            Vector2 temp = transform.position;
+            temp.x += enemySpeed * Time.deltaTime;
+            transform.position = temp;
+            Debug.Log("else geldi");
         }
-
-        
-
-
-
-
     }
-
-    void OnTriggerEnter2D(Collider2D target)
+    public void OnCollisionEnter2D(Collision2D target)
     {
-        if(target.tag == "collider")
-        {
-            moveleft = !moveleft;
-        }
+      
+        moveleft = !moveleft;
+        Debug.Log("geldi");
+        
     }
+    
+    
 }
