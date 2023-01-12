@@ -32,9 +32,42 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "enemy")
+        if(collision.tag == "enemy1")
         {
             SceneManager.LoadScene(0);
+        }
+        if (collision.tag == "enemy2")
+        {
+            SceneManager.LoadScene(1);
+        }
+        if (collision.tag == "enemy3")
+        {
+            SceneManager.LoadScene(2);
+        }
+        if (collision.tag == "enemy4")
+        {
+            SceneManager.LoadScene(3);
+        }
+        if (collision.tag == "enemy5")
+        {
+            SceneManager.LoadScene(4);
+        }
+
+        if (collision.tag == "go2")
+        {
+            SceneManager.LoadScene(1);
+        }
+        if (collision.tag == "go3")
+        {
+            SceneManager.LoadScene(2);
+        }
+        if (collision.tag == "go4")
+        {
+            SceneManager.LoadScene(3);
+        }
+        if (collision.tag == "go5")
+        {
+            SceneManager.LoadScene(4);
         }
     }
 }

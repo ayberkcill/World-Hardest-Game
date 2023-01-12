@@ -7,6 +7,15 @@ TagManager:
   - enemy
   - enemycol
   - collider
+  - go2
+  - go3
+  - go4
+  - go5
+  - enemy1
+  - enemy2
+  - enemy3
+  - enemy4
+  - enemy5
   layers:
   - Default
   - TransparentFX
