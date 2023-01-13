@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour
 {
     public float speed = 1f;
-    
+    public int coinValue = 0;   
     void FixedUpdate()
     {
         Vector2 temp = transform.position;
@@ -28,6 +28,8 @@ public class Player : MonoBehaviour
             temp.y -= speed * Time.deltaTime;
         }
         transform.position = temp;
+
+       
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -61,13 +63,18 @@ public class Player : MonoBehaviour
         {
             SceneManager.LoadScene(2);
         }
-        if (collision.tag == "go4")
+        if (collision.tag == "go4" && coinValue == 9)
         {
             SceneManager.LoadScene(3);
         }
-        if (collision.tag == "go5")
+        if (collision.tag == "go5" && coinValue == 13)
         {
             SceneManager.LoadScene(4);
+        }
+        if(collision.tag == "coin")
+        {
+            coinValue++;
+            Destroy(collision.gameObject);
         }
     }
 }
