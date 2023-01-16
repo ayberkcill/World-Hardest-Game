@@ -33,4 +33,11 @@ public class stage2enemy : MonoBehaviour
         Debug.Log("geldi");
 
     }
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "enemycol")
+        {
+            moveup = !moveup;
+        }    
+    }
 }
