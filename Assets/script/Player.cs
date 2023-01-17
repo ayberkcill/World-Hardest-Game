@@ -10,18 +10,136 @@ public class Player : MonoBehaviour
     public FloatingJoystick Joystick;
     Rigidbody2D player;
     Vector2 temp;
-    public bool PointerDown;
-    
+    private bool moveDown;
+    private bool moveUp;
+    private bool moveLeft;
+    private bool moveRight;
+    private float horizontalMove;
+    private float verticalMove;
 
     private void Start()
     {
         player = GetComponent<Rigidbody2D>();
+        moveDown = false;
+        moveUp = false;
+        moveLeft = false;
+        moveRight = false;
     }
+
+    
+    public void PointerDownLeft()
+    {
+        moveLeft = true;
+    }
+    public void PointerUpLeft()
+    {
+        moveLeft=false;
+    }
+
+    public void PointerDownRight()
+    {
+        moveRight = true;
+    }
+
+    public void PointerUpRight()
+    {
+        moveRight=false;
+    }
+    public void PointerDownUp()
+    {
+        moveUp = true;
+    }
+    public void PointerUpUp()
+    {
+        moveUp=false;
+    }
+
+    public void PointerDownDown()
+    {
+        moveDown = true;
+    }
+
+    public void PointerUpDown()
+    {
+        moveDown = false;
+    }
+
+    public void movePlayer()
+    {
+        if (moveLeft)
+        {
+            horizontalMove -= speed; 
+        }
+        else if (moveRight)
+        {
+            horizontalMove += speed;
+        }
+        else
+        {
+            horizontalMove = 0;
+        }
+
+       
+        
+        if (moveRight)
+        {
+            horizontalMove += speed;
+        }
+        else if (moveRight)
+        {
+            horizontalMove = speed;
+        }
+        else
+        {
+            horizontalMove = 0;
+        }
+      
+        
+        
+        if (moveUp)
+        {
+            verticalMove -= speed;
+        }
+        else if (moveUp)
+        {
+            verticalMove = speed;
+        }
+        else
+        {
+            verticalMove = 0;
+        }
+       
+        
+        
+        if (moveLeft)
+        {
+            verticalMove += speed;
+        }
+        else if (moveRight)
+        {
+            verticalMove = speed;
+        }
+        else
+        {
+            verticalMove = 0;
+        }
+
+
+    }
+
+
+
+
+
+
+
+
 
     private void Update()
     {
         //temp.x = Joystick.Horizontal;
         //temp.y = Joystick.Vertical;
+        movePlayer();
     }
 
     private void FixedUpdate()
@@ -57,13 +175,14 @@ public class Player : MonoBehaviour
         //rb.MovePosition(rb.position * temp * speed * Time.fixedDeltaTime);
         //}
 
-        Vector2 direction = Vector2.up * Joystick.Vertical + Vector2.right * Joystick.Horizontal;
+        //Vector2 direction = Vector2.up * Joystick.Vertical + Vector2.right * Joystick.Horizontal;
 
        
         
-            gameObject.transform.Translate(direction * speed * Time.deltaTime);
+        //    gameObject.transform.Translate(direction * speed * Time.deltaTime);
         
-
+        player.velocity = new Vector2(horizontalMove, player.velocity.y);
+        player.velocity = new Vector2(verticalMove, player.velocity.x);
 
     }
 
