@@ -7,126 +7,59 @@ public class Player : MonoBehaviour
 {
     public float speed = 1f;
     public int coinValue = 0;
-    public FloatingJoystick Joystick;
-    Rigidbody2D player;
-    Vector2 temp;
-    private bool moveDown;
-    private bool moveUp;
-    private bool moveLeft;
-    private bool moveRight;
-    private float horizontalMove;
-    private float verticalMove;
+    [SerializeField] private int Level;
+    [SerializeField] private int Coin;
+    //public FloatingJoystick Joystick;
+    private Coroutine HorizontalCoro;
+    private Coroutine VerticalCoro;
 
     private void Start()
     {
-        player = GetComponent<Rigidbody2D>();
-        moveDown = false;
-        moveUp = false;
-        moveLeft = false;
-        moveRight = false;
+       
     }
 
-    
+    IEnumerator Go(Vector2 Vec)
+    {
+        while (true)
+        {
+            transform.Translate(Vec * speed*Time.deltaTime);
+            yield return null;
+        }
+    }
     public void PointerDownLeft()
     {
-        moveLeft = true;
+        HorizontalCoro=StartCoroutine(Go(Vector2.left));
     }
     public void PointerUpLeft()
     {
-        moveLeft=false;
+        StopCoroutine(HorizontalCoro);
     }
-
     public void PointerDownRight()
     {
-        moveRight = true;
+        HorizontalCoro=StartCoroutine(Go(Vector2.right));
     }
-
     public void PointerUpRight()
     {
-        moveRight=false;
+        StopCoroutine(HorizontalCoro);
     }
     public void PointerDownUp()
-    {
-        moveUp = true;
+    { 
+        VerticalCoro=StartCoroutine(Go(Vector2.up));
     }
     public void PointerUpUp()
     {
-        moveUp=false;
+        StopCoroutine(VerticalCoro);
     }
 
     public void PointerDownDown()
     {
-        moveDown = true;
+        VerticalCoro = StartCoroutine(Go(Vector2.down));
     }
 
     public void PointerUpDown()
     {
-        moveDown = false;
+        StopCoroutine(VerticalCoro);
     }
-
-    public void movePlayer()
-    {
-        if (moveLeft)
-        {
-            horizontalMove -= speed; 
-        }
-        else if (moveRight)
-        {
-            horizontalMove += speed;
-        }
-        else
-        {
-            horizontalMove = 0;
-        }
-
-       
-        
-        if (moveRight)
-        {
-            horizontalMove += speed;
-        }
-        else if (moveRight)
-        {
-            horizontalMove = speed;
-        }
-        else
-        {
-            horizontalMove = 0;
-        }
-      
-        
-        
-        if (moveUp)
-        {
-            verticalMove -= speed;
-        }
-        else if (moveUp)
-        {
-            verticalMove = speed;
-        }
-        else
-        {
-            verticalMove = 0;
-        }
-       
-        
-        
-        if (moveLeft)
-        {
-            verticalMove += speed;
-        }
-        else if (moveRight)
-        {
-            verticalMove = speed;
-        }
-        else
-        {
-            verticalMove = 0;
-        }
-
-
-    }
-
 
 
 
@@ -139,7 +72,7 @@ public class Player : MonoBehaviour
     {
         //temp.x = Joystick.Horizontal;
         //temp.y = Joystick.Vertical;
-        movePlayer();
+        //movePlayer();
     }
 
     private void FixedUpdate()
@@ -180,40 +113,39 @@ public class Player : MonoBehaviour
        
         
         //    gameObject.transform.Translate(direction * speed * Time.deltaTime);
-        
-        player.velocity = new Vector2(horizontalMove, player.velocity.y);
-        player.velocity = new Vector2(verticalMove, player.velocity.x);
-
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "enemy1")
+        //if(collision.tag == "enemy1")
+        //{
+        //    SceneManager.LoadScene(0);
+        //}
+        //if (collision.tag == "enemy2")
+        //{
+        //    SceneManager.LoadScene(1);
+        //}
+        //if (collision.tag == "enemy3")
+        //{
+        //    SceneManager.LoadScene(2);
+        //}
+        //if (collision.tag == "enemy4")
+        //{
+        //    SceneManager.LoadScene(3);
+        //}
+        //if (collision.tag == "enemy5")
+        //{
+        //    SceneManager.LoadScene(4);
+        //}
+        if (collision.gameObject.CompareTag("enemy"))
         {
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene(Level);
         }
-        if (collision.tag == "enemy2")
-        {
-            SceneManager.LoadScene(1);
-        }
-        if (collision.tag == "enemy3")
-        {
-            SceneManager.LoadScene(2);
-        }
-        if (collision.tag == "enemy4")
-        {
-            SceneManager.LoadScene(3);
-        }
-        if (collision.tag == "enemy5")
-        {
-            SceneManager.LoadScene(4);
-        }
-
         if (collision.tag == "go2")
         {
             SceneManager.LoadScene(1);
         }
-        if (collision.tag == "go3")
+        if (collision.tag == "go3" && coinValue == 1)
         {
             SceneManager.LoadScene(2);
         }
